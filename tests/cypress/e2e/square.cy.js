@@ -1,30 +1,35 @@
 /// <reference types = "cypress" />
 
 import { square } from "../page_objects/square-page";
+import {
+  Given,
+  When,
+  And,
+  Then,
+} from "@badeball/cypress-cucumber-preprocessor";
 
-beforeEach(() => {
+Given("que estou na tela do quadrado", () => {
   cy.visit("http://127.0.0.1:5500/app/index.html");
+});
+
+And("o quadrado está visível", () => {
   square().should("be.visible");
 });
 
-describe("Verifica o tamanho do quadrado", () => {
-  it("Valida se o quadrado aumentou para 225px", () => {
-    square()
-      .trigger("pointerdown", { button: 0 })
-      .invoke("outerWidth")
-      .should("equal", 225);
+When("eu der um clique longo em cima do quadrado", () => {
+  square().trigger("pointerdown", { button: 0 });
+});
 
-    square().invoke("outerHeight").should("equal", 225);
-  });
+Then("o quadrado deve expandir para 225px de altura e largura", () => {
+  square().invoke("outerWidth").should("equal", 225);
+  square().invoke("outerHeight").should("equal", 225);
+});
 
-  it("Valida se o quadrado diminuiu para 90px", () => {
-    square()
-      .trigger("pointerdown", { button: 0 })
-      .wait(600)
-      .trigger("pointerdown", { button: 0 })
-      .invoke("outerWidth")
-      .should("equal", 90);
+And("espero o final da transformação do quadrado", () => {
+  square().wait(600);
+});
 
-    square().invoke("outerHeight").should("equal", 90);
-  });
+Then("o quadrado deve retrair para 90px de altura e largura", () => {
+  square().invoke("outerWidth").should("equal", 90);
+  square().invoke("outerHeight").should("equal", 90);
 });
