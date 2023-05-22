@@ -4,7 +4,7 @@ Feature: Comportamento do elemento quadrado
 
     Background:
         Given que estou na tela do quadrado
-        And o quadrado está visível
+        When o quadrado está visível
 
     Scenario: Valida se o quadrado aumentou para 225px
         When eu der um clique longo em cima do quadrado
@@ -12,6 +12,6 @@ Feature: Comportamento do elemento quadrado
 
     Scenario: Valida se o quadrado diminuiu para 90px
         When eu der um clique longo em cima do quadrado
-        And espero o final da transformação do quadrado
-        And eu der um clique longo em cima do quadrado
+        When espero o final da transformação do quadrado
+        When eu der um clique longo em cima do quadrado
         Then o quadrado deve retrair para 90px de altura e largura
